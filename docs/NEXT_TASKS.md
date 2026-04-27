@@ -50,39 +50,7 @@ Stav projektu: **žádné kritické bugy**. Hra je funkční, nasazená a instal
 
 ## B. Důležité opravy
 
-### B1. Dead code: `state.errors` se nikdy neinkrementuje
-
-**Popis:** Proměnná `state.errors` je definována v objektu `state`, ale žádná část kódu ji nikdy nezvyšuje. `maxErrors: 6` v obtížnosti 3 se tedy nikdy nevyhodnocuje.
-
-**Dopad na hru:** Žádný – hra funguje správně. Limit chyb pro úroveň 3 prostě není implementován.
-
-**Očekávaný výsledek:** Buď implementovat (hráč prohraje po 6 špatných ingrediencích), nebo dead code odstranit.
-
-**Místo v kódu:** `script.js` – objekt `state`, `DIFFICULTIES[3].maxErrors`, chybí volání v `collectIngredient`.
-
-**Postup:** Rozhodnutí uživatele – viz poznámka.
-
-**Čemu se vyhnout:** Neimplementovat bez pokynu – mění herní mechaniku.
-
-**Priorita:** Nízká
-
-**Vyžaduje rozhodnutí uživatele:** Chceš, aby úroveň 3 měla limit chyb (prohra po 6 špatných ingrediencích)?
-
----
-
-### B2. Dead config: `bubbleAt: 3` v obtížnosti 2
-
-**Popis:** Obtížnost 2 má v konfiguraci vlastnost `bubbleAt: 3`, která se nikde v kódu nepoužívá.
-
-**Dopad na hru:** Žádný.
-
-**Očekávaný výsledek:** Odstranit vlastnost z konfigurace, nebo implementovat (pohár začne bublat po 3 správných ingrediencích).
-
-**Místo v kódu:** `script.js` – `DIFFICULTIES[2].bubbleAt`.
-
-**Priorita:** Nízká
-
-**Vyžaduje rozhodnutí uživatele:** Ano – zda funkci implementovat nebo konfiguraci smazat.
+Žádné aktuálně otevřené.
 
 ---
 
@@ -182,3 +150,7 @@ Stav projektu: **žádné kritické bugy**. Hra je funkční, nasazená a instal
 | 14 | Overlay otočení telefonu se zobrazoval i na titulní obrazovce | `script.js`, `styles.css` |
 | 15 | `recipe-card.png` neexistoval – modal bez pozadí | `styles.css` |
 | 16 | `icon-mobile.png` nebyla přidána do gitu – chyběla na Vercelu | `git` |
+| 17 | Špatná responzivita herní plochy v landscape (mobil) | `script.js`, `styles.css`, `assets/background/` |
+| 18 | PWA instalace na Androidu – ikona se po instalaci neobjevila (manifest deklaroval 512px soubor jako 192px + maskable bez safe zone) | `manifest.json` |
+| 19 | Implementace limitu chyb na úr. 3 (`maxErrors: 6`) | `script.js` |
+| 20 | Implementace radostných bublin po 3 správných ingrediencích na úr. 2 (`bubbleAt: 3`) | `script.js`, `styles.css` |

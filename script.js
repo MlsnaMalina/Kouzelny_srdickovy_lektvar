@@ -378,6 +378,7 @@ function setGobletImg(stateName) {
   const wrap = document.getElementById('cauldron-wrap');
   document.getElementById('goblet-img').src = `assets/goblet/goblet-${stateName}.png`;
   wrap.classList.toggle('bubbling', stateName === 'fail');
+  wrap.classList.remove('cheering');
 }
 
 // ===== SESTAVENÍ HTML RECEPTU =====
@@ -546,6 +547,8 @@ function collectIngredient(obj, el, isWrong) {
   if (!isWrong) {
     const key = state.config.anyFlower ? 'flower' : obj.type;
     state.collectedCounts[key] = (state.collectedCounts[key] || 0) + 1;
+  } else {
+    state.errors++;
   }
 
   state.collectedStack.push({
@@ -557,6 +560,18 @@ function collectIngredient(obj, el, isWrong) {
 
   updateCollectedBar();
   updateBackBtn();
+
+  // Bubliny radosti – pohár začne bublat po dosažení bubbleAt správných ingrediencí
+  const correctCount = Object.values(state.collectedCounts).reduce((a, b) => a + b, 0);
+  if (state.config.bubbleAt && correctCount >= state.config.bubbleAt) {
+    document.getElementById('cauldron-wrap').classList.add('cheering');
+  }
+
+  // Limit chyb (úroveň 3): prohra po dosažení maxErrors
+  if (state.config.maxErrors !== null && state.errors >= state.config.maxErrors) {
+    triggerFailure();
+    return;
+  }
 
   // Vyhodnoť, když je kotlík plný (počet = velikost receptu)
   const totalNeeded = Object.values(state.config.recipe).reduce((a, b) => a + b, 0);
@@ -665,7 +680,14 @@ function returnN(n) {
     if (!last.wrong) {
       const key = state.config.anyFlower ? 'flower' : last.type;
       state.collectedCounts[key] = Math.max(0, (state.collectedCounts[key] || 0) - 1);
+    } else {
+      state.errors = Math.max(0, state.errors - 1);
     }
+  }
+  // Bubliny zhasnou, pokud správných klesl pod bubbleAt
+  const correctCount = Object.values(state.collectedCounts).reduce((a, b) => a + b, 0);
+  if (state.config.bubbleAt && correctCount < state.config.bubbleAt) {
+    document.getElementById('cauldron-wrap').classList.remove('cheering');
   }
   renderScene();
   updateCollectedBar();
