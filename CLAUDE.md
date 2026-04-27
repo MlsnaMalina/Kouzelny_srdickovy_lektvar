@@ -1,60 +1,82 @@
 # Kouzelný srdíčkový lektvar – CLAUDE.md
 
-Dětská webová hra (česky). Hráč klikáním sbírá ingredience a plní recept čarodějky.
-Tři obtížnosti: Pro nejmenší (3–4 r.), Pro předškoláky (5–6 l.), Pro školáky (7–10 l.).
+**Typ projektu:** Dětská webová hra (PWA)
+**Jazyk:** čeština
+**Cílová skupina:** děti 3–10 let
 
-Podrobný stav projektu: `docs/PROJECT_HANDOFF.md`
-Aktuální úkoly a bugy: `docs/NEXT_BUGFIX_TASKS.md`
+Hráč tahá ingredience do poháru čarodějky a plní recept. Tři obtížnosti.
+Hra je nasazena na Vercelu a je instalovatelná jako PWA.
+
+Podrobný stav: `docs/PROJECT_HANDOFF.md`
+Aktuální úkoly: `docs/NEXT_TASKS.md`
 
 ---
 
 ## Pravidla práce – POVINNÉ
 
-- **Nikdy nepřepisuj projekt od nuly.** Jen minimální, cílené změny.
-- **Nepoužívej emoji** – ani v kódu, ani v HTML, ani v textu hry.
-- **Bez externích knihoven** – žádný npm, žádný CDN, pokud uživatel výslovně nepovolí.
-- **Používej existující PNG assety** ze složky `assets/`. Nevytvárej vlastní grafiku.
+- **Nikdy nepřepisuj projekt od nuly.** Pouze minimální, cílené změny.
+- **Před větším zásahem nejdřív vysvětli plán** – nečekej, že uživatel odhalí problém až po faktu.
+- **Neměň funkční části bez důvodu.**
+- **Bez externích knihoven** – žádný npm, žádný CDN bez výslovného souhlasu.
+- **Používej pouze existující PNG assety** ze složky `assets/`. Nevytvářej vlastní grafiku.
 - **Nevypisuj celý kód do chatu.** Ukazuj jen relevantní úryvky a diff.
-- Každá změna musí zachovat vizuální styl a strukturu kódu, která už existuje.
+- **Po každé úpravě stručně popiš, co se změnilo.**
+- **Nepoužívej emoji** v kódu, HTML ani textu hry.
+- Před přidáním nového assetu ověř, že soubor fyzicky existuje v `assets/`.
+
+---
+
+## Technologický stack
+
+- Vanilla HTML / CSS / JavaScript (žádný framework, žádný build)
+- Web Audio API (zvukové efekty)
+- Web Speech API (hlasová nápověda, česky)
+- Pointer Events API (drag & drop)
+- PWA: `manifest.json` + Service Worker (`sw.js`, cache `lektvar-v3`)
+- Hosting: GitHub → Vercel (auto-deploy z větve `main`)
 
 ---
 
 ## Struktura projektu
 
 ```
-index.html
-styles.css
-script.js
+index.html          – HTML kostra, 3 obrazovky + overlaye
+styles.css          – veškeré styly (bez frameworku)
+script.js           – veškerá logika (bez frameworku)
+manifest.json       – PWA manifest
+sw.js               – Service Worker (cache-first, verze lektvar-v3)
 assets/
-  background/   background-meadow.png
-  characters/   witch-idle.png  witch-making-magic.png  witch-happy.png
-                witch-scared.png  witch-reading.png
-  goblet/       goblet-idle.png  goblet-success.png  goblet-fail.png
-  ingredients/  flower-yellow.png  flower-red.png  pinecone.png
-                stone-white.png  stone-gray.png  leaf-green.png
-  ui/           icon-home.png  icon-recipe.png  icon-sound.png  icon-back.png
-                recipe-panel.png  recipe-card.png
+  background/       background-meadow.png
+  characters/       witch-idle.png  witch-making-magic.png  witch-happy.png
+                    witch-scared.png  witch-reading.png
+                    cat.png  bat.png
+  goblet/           goblet-idle.png  goblet-success.png  goblet-fail.png
+  ingredients/      flower-yellow.png  flower-red.png  flower-purple.png
+                    pinecone.png  stone-white.png  stone-grey.png
+                    leaf-green.png  camp-fire.png
+                    heart-pink.png  heart-white.png
+                    star-pink.png  star-white.png
+                    mushroom.png  stump.png
+  ui/               icon-home.png  icon-recipe.png  icon-sound.png
+                    icon-back.png  icon-mobile.png
+                    recipe-panel.png  readme.png  how-to-play.png
 docs/
   PROJECT_HANDOFF.md
-  NEXT_BUGFIX_TASKS.md
+  NEXT_TASKS.md
 ```
 
 ---
 
-## Základní herní logika
+## Jak spustit
 
-1. Hráč vybere obtížnost → zobrazí se recept (úrovně 2 a 3) → herní scéna.
-2. Klik na ingredienci ji přesune do poháru (animace `flying`).
-3. Správné ingredience zvyšují `collectedCounts`, špatné ne.
-4. Hra se vyhodnotí, jakmile `collectedStack.length >= totalNeeded`.
-5. Shoda s receptem = úspěch (srdíčka + `witch-happy`), neshoda = neúspěch (třes poháru + `witch-scared`).
-6. Nápověda: tlačítko receptu = −2 ingredience, zvukové tlačítko = −1 ingredience.
-7. Špatné ingredience na úrovni 2 se v liště zobrazují s `opacity: 0.45`.
+Otevřít `index.html` přímo v prohlížeči (Chrome / Edge).
+Žádný build, žádný server, žádné závislosti.
 
 ---
 
-## Důležitá upozornění
+## Klíčové upozornění
 
-- Úvodní obrazovku (`#screen-title`) zatím **neupravuj** – bude samostatná fáze.
-- Assety mají přesné cesty – při přidávání nového assetu zkontroluj, že soubor fyzicky existuje.
-- Nepoužívej `obj.decoy` – vlastnost byla odstraněna, filtry řeší `DECOY_FILTER` mapa.
+- `recipe-card.png` **neexistuje** – bylo odstraněno. `.modal-box` používá `recipe-panel.png`.
+- `anyFlower` je na všech úrovních `false` – každý typ se vyhodnocuje samostatně.
+- `DECOY_FILTER` mapa řeší CSS filtr pro `brown-leaf` – nepoužívej `obj.decoy`.
+- `state.errors` je definován, ale **nikdy se neinkrementuje** – dead code.
