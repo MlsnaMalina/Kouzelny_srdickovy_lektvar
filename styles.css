@@ -480,8 +480,7 @@ body {
   flex: 1;
   position: relative;
   overflow: hidden;
-  /* 100% auto + top = celá šírka ilustrace, zakotvená nahoře, obloha a stromy vždy viditelné */
-  background: url('assets/background/background-meadow.png') top center / 100% auto no-repeat;
+  background: url('assets/background/background-meadow.png') bottom center / cover no-repeat;
   background-color: #5CAF30;
 }
 
@@ -739,9 +738,9 @@ body {
   padding: 2rem;
 }
 
-/* Zobrazit pouze na dotykových zařízeních v portrétním režimu */
-@media (orientation: portrait) and (max-width: 768px) and (hover: none) and (pointer: coarse) {
-  #rotate-overlay { display: flex; }
+/* Zobrazit pouze v portrétním režimu na herních obrazovkách (ne na titulní) */
+@media (orientation: portrait) and (max-width: 768px) {
+  #rotate-overlay.game-screen-active { display: flex; }
 }
 
 .rotate-phone {
@@ -774,8 +773,8 @@ body {
 }
 
 /* ===== MOBILNÍ RESPONZIVITA – LANDSCAPE (telefony) ===== */
-/* Landscape telefon: výška <= 500px, orientace landscape, dotyková obrazovka */
-@media (max-height: 500px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+/* Landscape telefon: výška <= 500px, orientace landscape */
+@media (max-height: 500px) and (orientation: landscape) {
 
   /* Horní lišta – kompaktnější */
   #top-bar {

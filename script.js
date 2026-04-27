@@ -365,6 +365,8 @@ let state = {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  const isGameScreen = id === 'screen-game' || id === 'screen-recipe';
+  document.getElementById('rotate-overlay').classList.toggle('game-screen-active', isGameScreen);
 }
 
 // ===== STAVOVÉ PŘEPÍNÁNÍ ČARODĚJKY A POHÁRU =====
