@@ -1,4 +1,4 @@
-const CACHE = 'lektvar-v1';
+const CACHE = 'lektvar-v2';
 
 const ASSETS = [
   './',
@@ -32,6 +32,7 @@ const ASSETS = [
   './assets/ingredients/star-white.png',
   './assets/ingredients/mushroom.png',
   './assets/ingredients/stump.png',
+  './assets/ui/icon-mobile.png',
   './assets/ui/icon-home.png',
   './assets/ui/icon-recipe.png',
   './assets/ui/icon-sound.png',
