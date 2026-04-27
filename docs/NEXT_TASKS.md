@@ -92,18 +92,6 @@ Stav projektu: **žádné kritické bugy**. Hra je funkční, nasazená a instal
 
 ## D. Pozdější rozšíření
 
-### D2. Zvukové efekty pro jednotlivé ingredience
-
-**Popis:** Aktuálně jsou jen tři zvuky (start, úspěch, neúspěch). Přidání zvuku při sbírání správné / špatné ingredience by zlepšilo zpětnou vazbu, zejména pro nejmenší.
-
-**Místo v kódu:** `script.js` – `collectIngredient()`, zvukové funkce.
-
-**Priorita:** Nízká
-
-**Vyžaduje rozhodnutí uživatele:** Ano – zda funkci přidat.
-
----
-
 ### D3. Titulní obrazovka – popis obtížností
 
 **Popis:** Tlačítka obtížností zobrazují jen hvězdičky (1–3). Věkový rozsah nebo krátký popis (např. „Pro nejmenší", „Pro předškoláky") by pomohl rodičům vybrat správnou úroveň.
@@ -142,3 +130,4 @@ Stav projektu: **žádné kritické bugy**. Hra je funkční, nasazená a instal
 | 20 | Implementace radostných bublin po 3 správných ingrediencích na úr. 2 (`bubbleAt: 3`) | `script.js`, `styles.css` |
 | 21 | PWA neaktualizovala assety bez force refresh – přidán auto-reload při controllerchange | `index.html`, `sw.js` |
 | 22 | Více variant receptu na úr. 2 a 3 (3 → 8 variant) | `script.js` |
+| 23 | Zvukové efekty při sbírání správné / špatné ingredience | `script.js` |

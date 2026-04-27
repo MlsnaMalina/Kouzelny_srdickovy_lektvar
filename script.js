@@ -830,6 +830,10 @@ function collectIngredient(obj, el, isWrong) {
   el.classList.add('flying');
   el.addEventListener('animationend', () => el.remove(), { once: true });
 
+  // Zvuková zpětná vazba pro každou vloženou ingredienci
+  if (isWrong) playPickWrongSound();
+  else         playPickCorrectSound();
+
   // Pouze správné ingredience zvyšují počítadla receptu
   if (!isWrong) {
     const key = state.config.anyFlower ? 'flower' : obj.type;
@@ -1216,5 +1220,25 @@ function playFailSound() {
     _playTone(ctx, 330, t,        0.18, 0.35, 'sawtooth');
     _playTone(ctx, 220, t + 0.18, 0.22, 0.25, 'sawtooth');
     _playTone(ctx, 147, t + 0.36, 0.3,  0.15, 'sawtooth');
+  } catch (e) {}
+}
+
+// Krátké cinknutí při správné ingredienci (radostný blip)
+function playPickCorrectSound() {
+  try {
+    const ctx = initAudioContext();
+    const t = ctx.currentTime;
+    _playTone(ctx, 880,  t,        0.09, 0.25, 'triangle');
+    _playTone(ctx, 1318, t + 0.07, 0.1,  0.22, 'triangle');
+  } catch (e) {}
+}
+
+// Krátké žbluňknutí při špatné ingredienci (jemný negativní signál)
+function playPickWrongSound() {
+  try {
+    const ctx = initAudioContext();
+    const t = ctx.currentTime;
+    _playTone(ctx, 220, t,        0.1,  0.22, 'square');
+    _playTone(ctx, 165, t + 0.08, 0.12, 0.18, 'square');
   } catch (e) {}
 }
