@@ -1,0 +1,16 @@
+# Claude Code interní soubory
+.claude/
+
+# Systémové soubory Windows a Mac
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Dočasné soubory
+*.log
+*.tmp

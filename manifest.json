@@ -1,0 +1,25 @@
+{
+  "name": "Kouzelný srdíčkový lektvar",
+  "short_name": "Lektvar lásky",
+  "description": "Pomoz čarodějce připravit kouzelný lektvar lásky.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#112278",
+  "theme_color": "#7B2FA6",
+  "orientation": "any",
+  "lang": "cs",
+  "icons": [
+    {
+      "src": "assets/characters/witch-with-poison.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/characters/witch-with-poison.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

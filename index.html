@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kouzelný srdíčkový lektvar</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#7B2FA6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Lektvar lásky">
+  <link rel="apple-touch-icon" href="assets/characters/witch-with-poison.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ÚVODNÍ OBRAZOVKA -->
+<div id="screen-title" class="screen active">
+  <div class="title-bg">
+    <div class="title-particles" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="title-deco" aria-hidden="true">
+      <img class="tdeco tdeco-cat"       src="assets/characters/cat.png"          alt="" draggable="false">
+      <img class="tdeco tdeco-bat"       src="assets/characters/bat.png"          alt="" draggable="false">
+      <img class="tdeco tdeco-campfire"  src="assets/ingredients/camp-fire.png"   alt="" draggable="false">
+      <img class="tdeco tdeco-heart1"    src="assets/ingredients/heart-pink.png"  alt="" draggable="false">
+      <img class="tdeco tdeco-heart2"    src="assets/ingredients/heart-white.png" alt="" draggable="false">
+      <img class="tdeco tdeco-heart3"    src="assets/ingredients/heart-pink.png"  alt="" draggable="false">
+      <img class="tdeco tdeco-heart4"    src="assets/ingredients/heart-white.png" alt="" draggable="false">
+      <img class="tdeco tdeco-star1"     src="assets/ingredients/star-pink.png"   alt="" draggable="false">
+      <img class="tdeco tdeco-star2"     src="assets/ingredients/star-white.png"  alt="" draggable="false">
+      <img class="tdeco tdeco-star3"     src="assets/ingredients/star-pink.png"   alt="" draggable="false">
+      <img class="tdeco tdeco-star4"     src="assets/ingredients/star-white.png"  alt="" draggable="false">
+      <img class="tdeco tdeco-heart5"    src="assets/ingredients/heart-pink.png"  alt="" draggable="false">
+      <img class="tdeco tdeco-heart6"    src="assets/ingredients/heart-white.png" alt="" draggable="false">
+      <img class="tdeco tdeco-heart7"    src="assets/ingredients/heart-pink.png"  alt="" draggable="false">
+      <img class="tdeco tdeco-heart8"    src="assets/ingredients/heart-white.png" alt="" draggable="false">
+      <img class="tdeco tdeco-star5"     src="assets/ingredients/star-pink.png"   alt="" draggable="false">
+      <img class="tdeco tdeco-star6"     src="assets/ingredients/star-white.png"  alt="" draggable="false">
+      <img class="tdeco tdeco-star7"     src="assets/ingredients/star-pink.png"   alt="" draggable="false">
+      <img class="tdeco tdeco-star8"     src="assets/ingredients/star-white.png"  alt="" draggable="false">
+    </div>
+    <div class="title-layout">
+      <div class="title-scene" aria-hidden="true">
+        <img class="title-witch" src="assets/characters/witch-making-magic.png" alt="" draggable="false">
+        <img class="title-goblet" src="assets/goblet/goblet-idle.png" alt="" draggable="false">
+      </div>
+      <div class="title-card">
+        <h1 class="title-h1">Kouzelný<br><em>srdíčkový</em><br>lektvar</h1>
+        <p class="title-sub">Pomoz čarodějce připravit kouzelný lektvar lásky.</p>
+        <button class="readme-btn" onclick="openReadme()" aria-label="Přečti si návod ke hře">
+          <img src="assets/ui/readme.png" alt="Přečti si mě" draggable="false">
+        </button>
+        <div class="diff-btns">
+          <button class="diff-btn d1" onclick="startGame(1)">
+            <img class="diff-star" src="assets/ingredients/star-white.png" alt="Pro nejmenší">
+          </button>
+          <button class="diff-btn d2" onclick="startGame(2)">
+            <img class="diff-star" src="assets/ingredients/star-white.png" alt="">
+            <img class="diff-star" src="assets/ingredients/star-white.png" alt="Pro předškoláky">
+          </button>
+          <button class="diff-btn d3" onclick="startGame(3)">
+            <img class="diff-star" src="assets/ingredients/star-white.png" alt="">
+            <img class="diff-star" src="assets/ingredients/star-white.png" alt="">
+            <img class="diff-star" src="assets/ingredients/star-white.png" alt="Pro školáky">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OBRAZOVKA RECEPTU (režimy 2 a 3) -->
+<div id="screen-recipe" class="screen">
+  <div class="recipe-bg">
+    <div class="recipe-layout">
+      <img src="assets/characters/witch-reading.png" alt="Carodejka" class="witch-reading" draggable="false">
+      <div class="recipe-scroll">
+        <h2>Kouzelný recept</h2>
+        <p>Zapamatuj si, co patří do poháru.</p>
+        <div id="recipe-intro-list"></div>
+        <button class="btn-primary" onclick="beginGame()">Začít vaření!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERNÍ OBRAZOVKA -->
+<div id="screen-game" class="screen">
+
+  <!-- Horní lišta -->
+  <header id="top-bar">
+    <button class="bar-btn" onclick="goHome()" title="Domů"><img src="assets/ui/icon-home.png" alt="Domů"></button>
+    <button class="bar-btn" id="btn-recipe-show" onclick="showRecipeModal()" title="Recept"><img src="assets/ui/icon-recipe.png" alt="Recept"></button>
+    <button class="bar-btn" id="btn-sound" onclick="speakRecipe()" title="Nahlas"><img src="assets/ui/icon-sound.png" alt="Zvuk"></button>
+    <div id="collected-bar"></div>
+    <button class="bar-btn" id="btn-back" onclick="returnLastIngredient()" title="Vrátit zpět" disabled><img src="assets/ui/icon-back.png" alt="Zpět"></button>
+  </header>
+
+  <!-- Scéna -->
+  <main id="game-scene">
+
+    <!-- Čarodějka -->
+    <div id="witch">
+      <img id="witch-img" src="assets/characters/witch-idle.png" alt="Carodejka" draggable="false">
+    </div>
+
+    <!-- Pohár -->
+    <div id="cauldron-wrap">
+      <img id="goblet-img" src="assets/goblet/goblet-idle.png" alt="Pohar" draggable="false">
+    </div>
+
+    <!-- Ingredience (vykresleno JS) -->
+    <div id="ingredients-container"></div>
+
+    <!-- Efekty létající srdíčka -->
+    <div id="hearts-fx"></div>
+    <!-- Rozlitá voda -->
+    <div id="spill-fx"></div>
+  </main>
+
+  <!-- Modál receptu -->
+  <div id="recipe-modal" class="modal-bg hidden">
+    <div class="modal-box">
+      <div class="modal-title">Recept na lektvar</div>
+      <div id="modal-recipe-list"></div>
+      <button class="btn-primary" onclick="closeRecipeModal()">▶ Pokračovat ve hře</button>
+    </div>
+  </div>
+
+  <!-- Overlay úspěch -->
+  <div id="overlay-success" class="game-overlay hidden">
+    <button class="btn-result btn-ok" onclick="restartGame()">Hrát znovu!</button>
+  </div>
+
+  <!-- Overlay neúspěch -->
+  <div id="overlay-failure" class="game-overlay hidden">
+    <button class="btn-result btn-retry" onclick="restartGame()">Zkusit znovu!</button>
+  </div>
+
+  <!-- Overlay instrukce pro uroven 1 -->
+  <div id="overlay-intro" class="game-overlay hidden">
+    <div class="intro-card">
+      <div id="intro-recipe-imgs" class="intro-imgs"></div>
+      <button class="btn-primary" onclick="closeIntroOverlay()">Hr&#225;t!</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modál návodu -->
+<div id="readme-modal" class="readme-overlay hidden" onclick="closeReadmeOnBg(event)" role="dialog" aria-modal="true" aria-label="Návod ke hře">
+  <div class="readme-box">
+    <button class="readme-close" onclick="closeReadme()" aria-label="Zavřít návod">&times;</button>
+    <img src="assets/ui/how-to-play.png" alt="Návod ke hře" class="readme-img" draggable="false">
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js');
+    });
+  }
+</script>
+</body>
+</html>
