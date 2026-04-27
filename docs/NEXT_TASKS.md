@@ -92,20 +92,6 @@ Stav projektu: **žádné kritické bugy**. Hra je funkční, nasazená a instal
 
 ## D. Pozdější rozšíření
 
-### D1. Více variant receptu pro obtížnosti 2 a 3
-
-**Popis:** Obtížnosti 2 a 3 mají aktuálně 3 varianty receptu. Přidání dalších variant zvyšuje znovuhratelnost.
-
-**Místo v kódu:** `script.js` – `DIFFICULTIES[2].recipeVariants` a `DIFFICULTIES[3].recipeVariants`.
-
-**Postup:** Přidat nový objekt do pole `recipeVariants` se stejnou strukturou (`recipe`, `recipeDisplay`, `objects`).
-
-**Čemu se vyhnout:** Neměnit schéma objektu; nepoužívat typy assetů, které neexistují v `assets/ingredients/`.
-
-**Priorita:** Nízká
-
----
-
 ### D2. Zvukové efekty pro jednotlivé ingredience
 
 **Popis:** Aktuálně jsou jen tři zvuky (start, úspěch, neúspěch). Přidání zvuku při sbírání správné / špatné ingredience by zlepšilo zpětnou vazbu, zejména pro nejmenší.
@@ -154,3 +140,5 @@ Stav projektu: **žádné kritické bugy**. Hra je funkční, nasazená a instal
 | 18 | PWA instalace na Androidu – ikona se po instalaci neobjevila (manifest deklaroval 512px soubor jako 192px + maskable bez safe zone) | `manifest.json` |
 | 19 | Implementace limitu chyb na úr. 3 (`maxErrors: 6`) | `script.js` |
 | 20 | Implementace radostných bublin po 3 správných ingrediencích na úr. 2 (`bubbleAt: 3`) | `script.js`, `styles.css` |
+| 21 | PWA neaktualizovala assety bez force refresh – přidán auto-reload při controllerchange | `index.html`, `sw.js` |
+| 22 | Více variant receptu na úr. 2 a 3 (3 → 8 variant) | `script.js` |

@@ -19,7 +19,7 @@ Repozitář: GitHub (MlsnaMalina/Kouzelny_srdickovy_lektvar), nasazení: Vercel 
 ### Hotové
 
 - Tři obtížnosti s vlastními recepty a rušivými prvky.
-- Náhodný výběr varianty receptu při každém spuštění (úr. 1: 4 varianty, úr. 2–3: 3 varianty).
+- Náhodný výběr varianty receptu při každém spuštění (úr. 1: 4 varianty, úr. 2: 8 variant, úr. 3: 8 variant).
 - Náhodné rozmístění ingrediencí na scéně (`shufflePositions`).
 - Drag & drop ingrediencí pomocí Pointer Events API (`setPointerCapture`).
 - Drop zona nad pohárem se zvýrazněním (dashed circle).
