@@ -1,4 +1,4 @@
-const CACHE = 'lektvar-v6';
+const CACHE = 'lektvar-v7';
 
 const ASSETS = [
   './',
