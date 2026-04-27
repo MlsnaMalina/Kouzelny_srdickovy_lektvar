@@ -49,8 +49,8 @@ function shufflePositions(objects) {
     return pool.sort(() => Math.random() - 0.5);
   };
 
-  const groundPool = makePool(6, 22, 3);  // louka: 21 slotů
-  const airPool    = makePool(24, 40, 2); // vzduch: 14 slotů
+  const groundPool = makePool(4, 28, 3);  // louka: 21 slotů
+  const airPool    = makePool(30, 55, 2); // vzduch: 14 slotů
 
   let gi = 0, ai = 0;
   return objects.map(obj => {

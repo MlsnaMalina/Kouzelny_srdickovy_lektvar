@@ -1,4 +1,4 @@
-const CACHE = 'lektvar-v3';
+const CACHE = 'lektvar-v4';
 
 const ASSETS = [
   './',
@@ -7,6 +7,7 @@ const ASSETS = [
   './script.js',
   './manifest.json',
   './assets/background/background-meadow.png',
+  './assets/background/background-meadow-landscape.png',
   './assets/characters/witch-idle.png',
   './assets/characters/witch-making-magic.png',
   './assets/characters/witch-happy.png',

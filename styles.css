@@ -796,7 +796,7 @@ body {
   }
 
   /* Ingredience – škálovat podle výšky scény (vh), ne šířky */
-  .ingredient img { width: clamp(42px, 9vh, 62px); }
+  .ingredient img { width: clamp(48px, 13vh, 72px); }
 
   /* Lišta sebraných ingrediencí */
   .coll-item { height: 26px; }
@@ -811,21 +811,42 @@ body {
   .intro-card { padding: 0.8rem 1.2rem; }
   .intro-ing-img { width: 50px; height: 50px; }
 
-  /* Recept overlay (úrovně 2–3) */
+  /* Pozadí optimalizované pro landscape (mobil) */
+  #game-scene,
+  .recipe-bg {
+    background-image: url('assets/background/background-meadow-landscape.png');
+    background-size: cover;
+    background-position: center center;
+  }
+
+  /* Recept obrazovka (úrovně 2–3) – kompaktní v landscape */
+  .recipe-bg { padding: 0.4rem 0.8rem; }
   .recipe-layout {
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
-    padding: 0 1rem;
+    gap: 0.8rem;
+    padding: 0;
+    max-height: 100%;
   }
-  .witch-reading { height: clamp(100px, 36vh, 170px); }
+  .witch-reading { height: clamp(90px, 30vh, 150px); }
   .recipe-scroll {
     width: clamp(200px, 38vw, 380px);
-    padding: 0.8rem 1rem;
+    padding: 0.5rem 0.9rem;
+    max-height: 96vh;
+    overflow-y: auto;
   }
-  .recipe-row-ico { width: 40px; }
-  .recipe-row-count { font-size: 1.1rem; }
-  .btn-primary { padding: 0.5rem 1.2rem; font-size: 0.95rem; }
+  .recipe-scroll h2 { font-size: clamp(1rem, 4.5vh, 1.4rem); margin-bottom: 0.15rem; }
+  .recipe-scroll p  { font-size: clamp(0.75rem, 2.6vh, 0.95rem); margin-bottom: 0.4rem; }
+  .recipe-list { gap: 0.25rem; margin-bottom: 0.3rem; }
+  .recipe-list-grid { gap: 0.25rem 1.6rem; }
+  .recipe-row { gap: 14px; }
+  .recipe-row-ico { width: 34px; height: 34px; }
+  .recipe-row-count { font-size: 1rem; min-width: 32px; }
+  .recipe-scroll .btn-primary {
+    margin-top: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.95rem;
+  }
 
   /* Modal receptu */
   .modal-box { padding: 1rem 1.2rem; max-height: 90vh; overflow-y: auto; }

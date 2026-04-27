@@ -8,7 +8,43 @@ Stav projektu: **žádné kritické bugy**. Hra je funkční, nasazená a instal
 
 ## A. Kritické bugy
 
-Žádné aktuálně známé.
+### A1. PWA instalace – po potvrzení se hra v zařízení neobjeví
+
+**Popis:** Při otevření odkazu na hru se nabídne možnost stáhnout / nainstalovat hru do zařízení. Po potvrzení instalace se však hra nikde v zařízení nezobrazí (chybí ikona na ploše / v seznamu aplikací) a není možné ji najít.
+
+**Dopad na hru:** Vysoký – uživatelé nemohou hru používat jako nainstalovanou PWA, přestože instalační dialog proběhl.
+
+**Očekávaný výsledek:** Po potvrzení instalace se ikona aplikace objeví na ploše / v seznamu aplikací a hra je spustitelná offline.
+
+**Místo v kódu:** `manifest.json` (ikony, `start_url`, `scope`, `display`), `sw.js` (registrace, cache), `index.html` (registrace SW, meta tagy).
+
+**Postup (návrh):** Ověřit – zda jsou ikony v manifestu skutečně dostupné (cesta, MIME), zda `start_url` a `scope` odpovídají hostingu na Vercelu, zda je `display: standalone`, zda Service Worker projde install fází bez chyby. Otestovat v Chrome DevTools → Application → Manifest / Service Workers.
+
+**Čemu se vyhnout:** Neměnit cache verzi bez důvodu; nepřepisovat funkční manifest – nejdřív diagnostika.
+
+**Priorita:** Vysoká
+
+**Vyžaduje rozhodnutí uživatele:** Ne – jde o bug, ale potřeba zjistit, na jakém zařízení / OS / prohlížeči se chyba projevuje.
+
+---
+
+### A2. Špatná responzivita herní plochy
+
+**Popis:** Samotné prostředí hry (`#screen-game` – čarodějka, pohár, ingredience na louce) se na různých zařízeních zobrazuje špatně responzivně. Titulní obrazovka je v pořádku, problém je pouze na herní obrazovce.
+
+**Dopad na hru:** Vysoký – některé prvky mohou být mimo viditelnou oblast, příliš malé / velké, překrývat se nebo nereagovat na drag.
+
+**Očekávaný výsledek:** Herní plocha se přizpůsobí velikosti zařízení (mobil portrait, mobil landscape, tablet, desktop) tak, aby všechny ingredience, pohár i čarodějka byly viditelné a hratelné.
+
+**Místo v kódu:** `styles.css` – sekce `#screen-game`, `.scene`, `.witch`, `.goblet`, `.ingredient`, media queries pro landscape breakpoint (`max-height: 500px + orientation: landscape`); `script.js` – `shufflePositions` (pozice ingrediencí v % vs. px).
+
+**Postup (návrh):** Nejdřív od uživatele zjistit, na kterém konkrétním zařízení / rozlišení / orientaci problém vidí a co přesně je špatně (screenshot pomůže). Pak cílená oprava – ne plošný refaktor.
+
+**Čemu se vyhnout:** Nepřepisovat funkční layout titulní obrazovky; neměnit `DIFFICULTIES` ani drag logiku; neřešit „od oka" bez konkrétního zařízení.
+
+**Priorita:** Vysoká
+
+**Vyžaduje rozhodnutí uživatele:** Ano – upřesnit zařízení a popis chyby (případně screenshot).
 
 ---
 
