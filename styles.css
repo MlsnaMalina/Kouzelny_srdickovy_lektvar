@@ -762,9 +762,19 @@ body {
   padding: 2rem;
 }
 
-/* Zobrazit pouze v portrétním režimu na herních obrazovkách (ne na titulní) */
+/* Zobrazit pouze v portrétním režimu na herních obrazovkách (ne na titulní).
+   Třída .rotate-needed se nastavuje z JS (spolehlivé na iOS Safari, kde
+   `@media (orientation)` nemusí reagovat na otočení). CSS media query je
+   ponechána jako záloha pro desktop a non-iOS prohlížeče. */
+#rotate-overlay.game-screen-active.rotate-needed { display: flex; }
+
 @media (orientation: portrait) and (max-width: 768px) {
   #rotate-overlay.game-screen-active { display: flex; }
+}
+@media (orientation: landscape) {
+  /* JS-driven režim má přednost – pokud JS rozhodne, že overlay není
+     potřeba, force-skryjeme i kdyby výše uvedená CSS pravidla matchovala. */
+  #rotate-overlay.game-screen-active:not(.rotate-needed) { display: none; }
 }
 
 .rotate-phone {

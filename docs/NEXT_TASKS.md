@@ -131,3 +131,4 @@ Stav projektu: **žádné kritické bugy**. Hra je funkční, nasazená a instal
 | 21 | PWA neaktualizovala assety bez force refresh – přidán auto-reload při controllerchange | `index.html`, `sw.js` |
 | 22 | Více variant receptu na úr. 2 a 3 (3 → 8 variant) | `script.js` |
 | 23 | Zvukové efekty při sbírání správné / špatné ingredience | `script.js` |
+| 24 | Hra na iPhonu nešla rozjet – overlay s prosbou o otočení nezmizel po landscape (iOS Safari nereevaluuje `@media (orientation)`). Přidán JS fallback s `.rotate-needed` třídou + listener na `orientationchange`/`resize` | `script.js`, `styles.css` |

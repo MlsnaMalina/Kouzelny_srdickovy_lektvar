@@ -654,6 +654,8 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
   const isGameScreen = id === 'screen-game' || id === 'screen-recipe';
   document.getElementById('rotate-overlay').classList.toggle('game-screen-active', isGameScreen);
+  // Aktualizuj detekci orientace (iOS Safari fallback)
+  if (typeof updateRotateOverlay === 'function') updateRotateOverlay();
 }
 
 // ===== STAVOVÉ PŘEPÍNÁNÍ ČARODĚJKY A POHÁRU =====
@@ -1242,3 +1244,28 @@ function playPickWrongSound() {
     _playTone(ctx, 165, t + 0.08, 0.12, 0.18, 'square');
   } catch (e) {}
 }
+
+// ===== DETEKCE ORIENTACE (iOS Safari fallback) =====
+// iOS Safari nereevaluuje `@media (orientation)` spolehlivě po otočení
+// telefonu, takže overlay s prosbou o otočení nezmizí. Řešíme JS detekcí
+// přes window.innerWidth/innerHeight a třídu .rotate-needed.
+function updateRotateOverlay() {
+  const overlay = document.getElementById('rotate-overlay');
+  if (!overlay) return;
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const isPortrait    = h > w;
+  const isSmallDevice = Math.min(w, h) <= 768;
+  overlay.classList.toggle('rotate-needed', isPortrait && isSmallDevice);
+}
+window.addEventListener('resize', updateRotateOverlay);
+window.addEventListener('orientationchange', () => {
+  // iOS někdy aktualizuje rozměry až po dokončení animace otočení.
+  // Voláme několikrát s odstupem, ať detekce zachytí finální stav.
+  setTimeout(updateRotateOverlay, 50);
+  setTimeout(updateRotateOverlay, 300);
+  setTimeout(updateRotateOverlay, 700);
+});
+document.addEventListener('DOMContentLoaded', updateRotateOverlay);
+// Pro případ, že DOM už je hotový (script načten async/po DOM ready)
+if (document.readyState !== 'loading') updateRotateOverlay();
